@@ -36,16 +36,7 @@ function Signup(props) {
         let {name, email,age, phone, password, confirmpassword}=user;
         age=Number(age);
         
-        // console.log(name, email,age, phone, password, confirmpassword);
-        // name="sakshi"
-        // email="s"
-        // age=Number(1)
-        // phone="1"
-        // password="s"
-        // confirmpassword="s"
-
-        // console.log(user);
-        const response= await fetch(`${process.env.REACT_APP_DATA}/Api/signup`,{
+        const response= await fetch(`${process.env.REACT_APP_BACKEND}/Api/signup`,{
             // const response= await fetch(`http://localhost:3001/Api/signup`,{
             method:"POST",
             headers:{

@@ -6,8 +6,8 @@ function Login(props) {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   let name, value;
@@ -18,12 +18,10 @@ function Login(props) {
   };
 
   const PostData = async (e) => {
-    console.log('hello');
     e.preventDefault();
     const { email,  password} = user;
 
-    // const response = await fetch(`${process.env.REACT_APP_DATA}/Api/signin`, {
-        const response = await fetch(`http://localhost:3001/Api/signin`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/Api/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
