@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import signinpic from './images/signinpic.svg';
 import { Routes, Route, Link, useNavigate, NavLink } from 'react-router-dom';
+// import zxcvbn from 'zxcvbn';
 
 function Login(props) {
   const navigate = useNavigate();
-
+  // const[isLoggedin,setIsLoggedin]=useState(false);
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  // let result=zxcvbn(user.password)
 
   let name, value;
   const handleInputs = (e) => {
@@ -38,9 +41,9 @@ function Login(props) {
     if (data2 === 200) {
     //   console.log(data1.accessToken);
       window.alert('Successfully login');
-
-    //   sessionStorage.setItem('accessToken', data1.accessToken);
+      sessionStorage.setItem("accessToken",data1.accessToken);
       navigate('/');
+      window.location.reload();
     } else {
       window.alert(errata);
     }
