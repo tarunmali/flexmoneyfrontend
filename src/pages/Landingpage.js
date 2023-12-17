@@ -10,13 +10,13 @@ const Landingpage = () =>{
         <h1 className="text-3xl font-bold mb-8">Yup Yoga: The new way of life!!</h1>
         <div className="flex flex-row items-center">
         <div className="flex gap-10">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded w-48">
+            <button className="bg-blue-500 text-white px-4 py-2 rounded w-40">
                 Select Month
             </button>
 
 
 
-            <button className="bg-blue-500 text-white px-4 py-2 rounded w-48">
+            <button className="bg-blue-500 text-white px-4 py-2 rounded w-40">
                 Select Year
           </button>
           </div>
