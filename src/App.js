@@ -5,6 +5,9 @@ import Landingpage from './pages/Landingpage';
 import Footer from './pages/Footer';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+
 
 const App=()=>{
     return (
@@ -34,6 +37,17 @@ const appRouter=createBrowserRouter([
                 path: "/contact",
                 element: <Contact/>
              },
+
+             {
+                path: "/signup",
+                element: <Signup/>
+             },
+
+             {
+                path: "/login",
+                element: <Login/>
+             },
+
 
         ]
     },
