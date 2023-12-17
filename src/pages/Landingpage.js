@@ -1,8 +1,8 @@
 import {useState} from "react";
-
+import { Routes, Route, Link, useNavigate, NavLink } from 'react-router-dom';
 
 const Landingpage = () =>{
-
+  const navigate = useNavigate();
     
     
     const months = [
@@ -19,7 +19,10 @@ const Landingpage = () =>{
     
     const onBookSlot = () => {
         // Define the booking logic using selectedMonth and selectedSlotNumber
-        console.log(`Slot booked for ${selectedYear}  ${selectedMonth} ${selectedSlot}`);
+        // console.log(`Slot booked for ${selectedYear}  ${selectedMonth} ${selectedSlot}`);
+        navigate('/payments',{
+          state: { selectedYear: selectedYear, selectedMonth: selectedMonth, selectedSlot: selectedSlot }}
+          );
       };
     
     const handleMonthChange = (e) => {

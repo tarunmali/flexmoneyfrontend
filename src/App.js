@@ -8,6 +8,8 @@ import Contact from './pages/Contact';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import 'dotenv/config';
+import Payments from "./pages/Payments";
+import Sessions from "./pages/Sessions";
 
 const App=()=>{
     return (
@@ -48,6 +50,15 @@ const appRouter=createBrowserRouter([
                 element: <Login/>
              },
 
+             {
+                path: "/payments",
+                element: <Payments/>
+             },
+
+             {
+                path: "/sessions",
+                element: <Sessions/>
+             },
 
         ]
     },
