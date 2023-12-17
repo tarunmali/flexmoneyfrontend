@@ -1,7 +1,7 @@
 const Footer = () =>{
     return (
         <div className="about">
-            <h1>Footer</h1>
+            <h6 style={{textAlign:"center"}}>This site is developed by Tarun Mali - tarunmali1729@gmail.com </h6>
         </div>
     )
 }
