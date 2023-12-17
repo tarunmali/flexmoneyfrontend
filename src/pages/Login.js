@@ -6,12 +6,8 @@ function Login(props) {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    name: '',
     email: '',
-    phone: '',
-    work: '',
     password: '',
-    cpassword: '',
   });
 
   let name, value;
@@ -22,15 +18,17 @@ function Login(props) {
   };
 
   const PostData = async (e) => {
+    console.log('hello');
     e.preventDefault();
-    const { name, email, phone, work, password, cpassword } = user;
+    const { email,  password} = user;
 
-    const response = await fetch(`${process.env.REACT_APP_DATA}/Api/signin`, {
+    // const response = await fetch(`${process.env.REACT_APP_DATA}/Api/signin`, {
+        const response = await fetch(`http://localhost:3001/Api/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name, email, phone, work, password, cpassword }),
+      body: JSON.stringify({ email, password }),
     });
 
     //This is how the fetch api works
@@ -39,11 +37,11 @@ function Login(props) {
 
     const errata = data1.error;
 
-    console.log(data1.accessToken);
     if (data2 === 200) {
+    //   console.log(data1.accessToken);
       window.alert('Successfully login');
 
-      sessionStorage.setItem('accessToken', data1.accessToken);
+    //   sessionStorage.setItem('accessToken', data1.accessToken);
       navigate('/');
     } else {
       window.alert(errata);

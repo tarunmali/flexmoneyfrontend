@@ -8,16 +8,16 @@ import confetti from 'canvas-confetti';
 
 
 function Signup(props) {
-    
+
     const navigate=useNavigate();
 
     const[user,setUser]=useState({
         name:"",
         email:"",
+        age:"",
         phone:"",
-        work:"",
         password:"",
-        cpassword:""
+        confirmpassword:""
     });
 
     let name,value;
@@ -32,17 +32,26 @@ function Signup(props) {
     const PostData=async(e)=>{
 
         e.preventDefault();
-        const {name, email, phone, work, password, cpassword}=user;
+        console.log(user);
+        let {name, email,age, phone, password, confirmpassword}=user;
+        age=Number(age);
+        
+        // console.log(name, email,age, phone, password, confirmpassword);
+        // name="sakshi"
+        // email="s"
+        // age=Number(1)
+        // phone="1"
+        // password="s"
+        // confirmpassword="s"
 
-
-        const response= await fetch(`${process.env.REACT_APP_DATA}/Api/User`,{
-
+        // console.log(user);
+        const response= await fetch(`${process.env.REACT_APP_DATA}/Api/signup`,{
+            // const response= await fetch(`http://localhost:3001/Api/signup`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
             },
-            
-            body:JSON.stringify({name, email, phone, work, password, cpassword})
+            body:JSON.stringify({name, email, age, phone,  password, confirmpassword})
         })  
 
         
@@ -73,7 +82,7 @@ function Signup(props) {
                 spread:180
               });
 
-            navigate('/login')
+            navigate('/')
         }
 
         else{
@@ -132,6 +141,27 @@ function Signup(props) {
   />
 </div>
 
+
+<div className='form-group'>
+  <label
+    htmlFor="age"
+    className="flex items-center mb-1 text-base font-medium"
+  >
+    <i className="zmdi zmdi-age material-icons-name mr-2"></i>
+    Your Age
+  </label>
+  <input
+    type="number"
+    name="age"
+    id="age"
+    placeholder="Your age"
+    value={user.age}
+    onChange={handleInputs}
+    className="w-full rounded px-3 py-2 border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+  />
+</div>
+
+
 <div className='form-group'>
   <label
     htmlFor="phone"
@@ -176,7 +206,7 @@ function Signup(props) {
 
 <div className='form-group'>
   <label
-    htmlFor="cpassword"
+    htmlFor="confirmpassword"
     className="flex items-center mb-1 text-base font-medium"
   >
     <i className="zmdi zmdi-lock material-icons-name mr-2"></i>
@@ -184,10 +214,10 @@ function Signup(props) {
   </label>
   <input
     type="password"
-    name="cpassword"
-    id="cpassword"
+    name="confirmpassword"
+    id="confirmpassword"
     placeholder="Confirm your password"
-    value={user.cpassword}
+    value={user.confirmpassword}
     onChange={handleInputs}
     className="w-full rounded px-3 py-2 border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
   />
