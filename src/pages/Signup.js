@@ -20,24 +20,50 @@ function Signup(props) {
         confirmpassword:""
     });
 
+    const [ageError, setAgeError] = useState('');
+    const [emailError, setEmailError] = useState('');
+
     let name,value;
     const handleInputs=(e)=>{
         name=e.target.name;
         value=e.target.value;
+
+        if (name === 'age') {
+          const ageValue = parseInt(value, 10);
+    
+          if (isNaN(ageValue) || ageValue < 18 || ageValue > 65) {
+            setAgeError('Age must be between 18 and 65.');
+          } else {
+            setAgeError('');
+          }
+        }
+
+
+        if (name === 'email') {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+          if (!emailRegex.test(value)) {
+            setEmailError('Please enter a valid email address.');
+          } else {
+            setEmailError('');
+          }
+        }
+
+        
         setUser({...user, [name]:value});
     }
 
-    // let result=zxcvbn(user.password)
+
 
     const PostData=async(e)=>{
 
         e.preventDefault();
         console.log(user);
         let {name, email,age, phone, password, confirmpassword}=user;
-        age=Number(age);
+        // age=Number(age);
         
         const response= await fetch(`${process.env.REACT_APP_BACKEND}/Api/signup`,{
-            // const response= await fetch(`http://localhost:3001/Api/signup`,{
+
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -45,20 +71,11 @@ function Signup(props) {
             body:JSON.stringify({name, email, age, phone,  password, confirmpassword})
         })  
 
-        
-            
 
-        // //This is how the fetch api works
         const data1=await response.json();
         const data2=response.status;
         
 
-        // console.log(response);
-
-
-
-        // console.log(data1);
-        // console.log(data2);
 
         const errata=data1.error;
 
@@ -87,11 +104,9 @@ function Signup(props) {
 
             
           <section className="signup flex flex-col items-center">
-            {/* Removed container class. Use Tailwind spacing utilities instead. */}
             <div className="signup-content bg-white rounded-lg shadow-md w-full md:w-1/2 px-8 py-10 mt-5">
               <h2 className="text-2xl font-bold mb-8 text-center">Sign up</h2>
               <form method="POST" className="flex flex-col gap-y-4">
-                {/* Replaced .form-group with flex and spacing utilities. */}
                 <div className="flex flex-col">
                   <label
                     htmlFor="name"
@@ -114,43 +129,47 @@ function Signup(props) {
 
 
 <div className='form-group'>
-  <label
-    htmlFor="email"
-    className="flex items-center mb-1 text-base font-medium"
-  >
-    <i className="zmdi zmdi-email material-icons-name mr-2"></i>
-    Your Email
-  </label>
-  <input
-    type="email"
-    name="email"
-    id="email"
-    placeholder="Your Email"
-    value={user.email}
-    onChange={handleInputs}
-    className="w-full rounded px-3 py-2 border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
-  />
-</div>
+        <label
+          htmlFor="email"
+          className="flex items-center mb-1 text-base font-medium"
+        >
+          <i className="zmdi zmdi-email material-icons-name mr-2"></i>
+          Your Email
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Your Email"
+          value={user.email}
+          onChange={handleInputs}
+          className="w-full rounded px-3 py-2 border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+        />
+        {emailError && <p className="text-red-500">{emailError}</p>}
+      </div>
 
 
 <div className='form-group'>
-  <label
-    htmlFor="age"
-    className="flex items-center mb-1 text-base font-medium"
-  >
-    <i className="zmdi zmdi-age material-icons-name mr-2"></i>
-    Your Age
-  </label>
-  <input
-    type="number"
-    name="age"
-    id="age"
-    placeholder="Your age"
-    value={user.age}
-    onChange={handleInputs}
-    className="w-full rounded px-3 py-2 border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
-  />
-</div>
+        <label
+          htmlFor="age"
+          className="flex items-center mb-1 text-base font-medium"
+        >
+          <i className="zmdi zmdi-age material-icons-name mr-2"></i>
+          Your Age
+        </label>
+        <input
+          type="number"
+          name="age"
+          id="age"
+          placeholder="Your age"
+          value={user.age}
+          onChange={handleInputs}
+          className="w-full rounded px-3 py-2 border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+        />
+        {ageError && <p className="text-red-500">{ageError}</p>}
+              </div>
+
+
 
 
 <div className='form-group'>
