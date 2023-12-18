@@ -11,9 +11,9 @@ const Payments = () =>{
     const accessToken=sessionStorage.getItem('accessToken');
     const validToken = useJwt(accessToken, "maybegeneraterandomly");
     // console.log(validToken.decodedToken.frontendEmail);
-    let frontendEmail;
+    let email;
     if(validToken.decodedToken!=null){
-        frontendEmail=validToken.decodedToken.email;
+        email=validToken.decodedToken.email;
         }    
 
       let selectedSlotDetails;
@@ -47,7 +47,7 @@ const Payments = () =>{
             selectedYear,
             selectedMonth,
             selectedSlot,
-            frontendEmail,
+            email,
             amount: 500,
           }),
         })
@@ -78,12 +78,12 @@ const Payments = () =>{
 
 
         {/* <p className="my-4">
-          Selected Year: {selectedYear}, Selected Month: {selectedMonth}, Selected Slot: {selectedSlotDetails}, Email: {frontendEmail}
+          Selected Year: {selectedYear}, Selected Month: {selectedMonth}, Selected Slot: {selectedSlotDetails}, Email: {email}
         </p> */}
       <p className="my-4">Selected Year: {selectedYear}</p>
       <p className="my-4">Selected Month: {selectedMonth}</p>
       <p className="my-4">Selected Slot: {selectedSlotDetails}</p>
-      <p className="my-4">Email: {frontendEmail}</p>
+      <p className="my-4">Email: {email}</p>
 
         <p className="mb-4">Price: 500 Rupees</p>
         
