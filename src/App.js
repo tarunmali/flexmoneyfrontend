@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Header from './pages/Header';
 import Landingpage from './pages/Landingpage';
@@ -13,7 +13,7 @@ import Sessions from "./pages/Sessions";
 
 const App=()=>{
     return (
-        <div class="app">
+        <div >
             <Header/>
             <Outlet/>
             <Footer/>
