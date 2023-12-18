@@ -2,6 +2,7 @@ import SessionCard from "../components/SessionCard";
 import { useJwt } from "react-jwt";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
+import LoginToBook from "../components/LoginToBook";
 
 const Sessions = () =>{
     const accessToken=sessionStorage.getItem('accessToken');
@@ -63,8 +64,12 @@ const Sessions = () =>{
         console.log(enrollments);
     }
 
+    if(isLoading)   return <Loading/>
+    
     return (
-            (<div >
+        !sessionStorage.getItem('accessToken') ?(
+            <LoginToBook/>
+          ):(<div >
                 {enrollments.map((enrollment) => (
                      <div key={enrollment._id} className="about">
                     <SessionCard {...enrollment} />
