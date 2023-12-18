@@ -1,16 +1,41 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { useJwt } from "react-jwt";
+import { useQuery } from 'react-query';
 
 const Payments = () =>{
     const location = useLocation();
     const propsFromNavigate = location.state;
     const { selectedYear, selectedMonth, selectedSlot } = propsFromNavigate;
     const [paymentStatus, setPaymentStatus] = useState('');
-    const email="try";
+    const accessToken=sessionStorage.getItem('accessToken');
+    const validToken = useJwt(accessToken, "maybegeneraterandomly");
+    // console.log(validToken.decodedToken.frontendEmail);
+    let frontendEmail;
+    if(validToken.decodedToken!=null){
+        frontendEmail=validToken.decodedToken.email;
+        }    
+
+      let selectedSlotDetails;
+      if(selectedSlot==1){
+        selectedSlotDetails="6:00 AM - 7:00 AM";
+      }
+      else if(selectedSlot==2){
+        selectedSlotDetails="7:00 AM - 8:00 AM";
+      }
+      else if(selectedSlot==3){
+        selectedSlotDetails="8:00 AM - 9:00 AM";
+      }
+      else if(selectedSlot==4){
+        selectedSlotDetails="5:00 PM - 6:00 PM";
+      }
+
+      const [isLoading, setIsLoading] = useState(false);
 
     //change the style of code
     const handlePayment = async () => {
       try {
+        setIsLoading(true);
         // Call the backend API to process the payment
         const response= await fetch(`${process.env.REACT_APP_BACKEND}/Api/payments`,{
         // const response = await fetch('/Api/payment', {
@@ -22,11 +47,10 @@ const Payments = () =>{
             selectedYear,
             selectedMonth,
             selectedSlot,
-            email,
+            frontendEmail,
             amount: 500,
           }),
-        });
-  
+        })
         const data = await response.json();
   
         // Update the payment status based on the API response
@@ -35,8 +59,14 @@ const Payments = () =>{
         // console.error('Error processing payment:', error);
         setPaymentStatus('An error occurred while processing the payment.');
       }
+      finally {
+        setIsLoading(false);
+      }
+
     };
   
+    if(isLoading)   return <h1>Loading.....</h1>
+
     return   !sessionStorage.getItem('accessToken') ?(
       <body class="flex items-center justify-center h-screen bg-gray-100">
   <h1 class="text-3xl font-bold text-center">Login to Book a Slot</h1>
@@ -44,13 +74,17 @@ const Payments = () =>{
     )
      :(
       <div className="p-8">
-        <h2 className="text-2xl font-semibold mb-4">Fake Payments Screen</h2>
-        <p>
-          Powered by Flexmoney
-        </p>
-        <p className="my-4">
-          Selected Year: {selectedYear}, Selected Month: {selectedMonth}, Selected Slot: {selectedSlot}, Email: {email}
-        </p>
+        <h2 className="text-2xl font-semibold mb-4">💵Secure Payments: Powered by Flexmoney🥈</h2>
+
+
+        {/* <p className="my-4">
+          Selected Year: {selectedYear}, Selected Month: {selectedMonth}, Selected Slot: {selectedSlotDetails}, Email: {frontendEmail}
+        </p> */}
+      <p className="my-4">Selected Year: {selectedYear}</p>
+      <p className="my-4">Selected Month: {selectedMonth}</p>
+      <p className="my-4">Selected Slot: {selectedSlotDetails}</p>
+      <p className="my-4">Email: {frontendEmail}</p>
+
         <p className="mb-4">Price: 500 Rupees</p>
         
         <button
