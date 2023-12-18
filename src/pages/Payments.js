@@ -37,7 +37,12 @@ const Payments = () =>{
       }
     };
   
-    return (
+    return   !sessionStorage.getItem('accessToken') ?(
+      <body class="flex items-center justify-center h-screen bg-gray-100">
+  <h1 class="text-3xl font-bold text-center">Login to Book a Slot</h1>
+</body>
+    )
+     :(
       <div className="p-8">
         <h2 className="text-2xl font-semibold mb-4">Fake Payments Screen</h2>
         <p>

@@ -90,7 +90,7 @@ function Signup(props) {
                 spread:180
               });
 
-            navigate('/')
+            navigate('/login')
         }
 
         else{

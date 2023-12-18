@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-
+import { useJwt } from "react-jwt";
 
 
 const Logout = () => {
@@ -9,6 +9,15 @@ const Logout = () => {
   }
 
 const Header = () =>{
+
+    const accessToken=sessionStorage.getItem('accessToken');
+    const validToken = useJwt(accessToken, "maybegeneraterandomly");
+    // console.log(validToken.decodedToken.email);
+    let frontendEmail;
+    if(validToken.decodedToken!=null){
+        frontendEmail=validToken.decodedToken.email;
+        }
+
     return (
         <div className="flex justify-between bg-pink-50 shadow-xl   sm:bg-purple-50" >
         {/* <div className="logo">
@@ -80,8 +89,17 @@ const Header = () =>{
         {
                 sessionStorage.getItem('accessToken')
                  &&(
-                  <>
+                  
+                   <div className='nav-items'>
+                 <ul
+                className="flex py-3 "></ul>
+ 
 
+            <span >
+            <span className="inline-block font-bold bg-gray-100 rounded-r px-2 text-indigo-500">Welcome!!!</span>
+            <span className="ml-2">{frontendEmail}</span>
+            </span>              
+                    <span> </span>
             <button
                 onClick={Logout}
                 className="bg-red-300 hover:bg-red-400 text-white px-4 py-2 rounded-full"
@@ -89,7 +107,7 @@ const Header = () =>{
                 Logout
                 </button>
 
-                  </>
+                  </div>
                 )
               }
 
