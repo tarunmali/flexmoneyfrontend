@@ -58,19 +58,19 @@ const Header = () =>{
 
             {!sessionStorage.getItem('accessToken')     &&
                 <Link to="/login">
-                <li className="px-2">Login❓</li>
+                <li className="px-2">Login 📥</li>
                 </Link>}
 
             {!sessionStorage.getItem('accessToken')     &&
             <Link to="/signup">
-                <li className="px-2">Signup❓</li>
+                <li className="px-2">Signup 📮</li>
                 </Link>}
 
 
 
                 {sessionStorage.getItem('accessToken')     &&
             <Link to="/sessions">
-                <li className="px-2">My Sessions</li>
+                <li className="px-2">My Sessions 📃</li>
                 </Link>}
 
 

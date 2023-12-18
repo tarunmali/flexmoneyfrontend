@@ -2,6 +2,9 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useJwt } from "react-jwt";
 import { useQuery } from 'react-query';
+import Loading from '../components/Loading';
+import LoginToBook from "../components/LoginToBook";
+
 
 const Payments = () =>{
     const location = useLocation();
@@ -65,21 +68,14 @@ const Payments = () =>{
 
     };
   
-    if(isLoading)   return <h1>Loading.....</h1>
+    if(isLoading)   return <Loading/>
 
     return   !sessionStorage.getItem('accessToken') ?(
-      <body class="flex items-center justify-center h-screen bg-gray-100">
-  <h1 class="text-3xl font-bold text-center">Login to Book a Slot</h1>
-</body>
+      <LoginToBook/>
     )
      :(
       <div className="p-8">
         <h2 className="text-2xl font-semibold mb-4">💵Secure Payments: Powered by Flexmoney🥈</h2>
-
-
-        {/* <p className="my-4">
-          Selected Year: {selectedYear}, Selected Month: {selectedMonth}, Selected Slot: {selectedSlotDetails}, Email: {email}
-        </p> */}
       <p className="my-4">Selected Year: {selectedYear}</p>
       <p className="my-4">Selected Month: {selectedMonth}</p>
       <p className="my-4">Selected Slot: {selectedSlotDetails}</p>

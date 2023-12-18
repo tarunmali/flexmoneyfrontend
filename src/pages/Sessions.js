@@ -1,7 +1,9 @@
+import SessionCard from "../components/SessionCard";
+
 const Sessions = () =>{
     return (
         <div className="about">
-            <h1>Sessions</h1>
+            <SessionCard/>
         </div>
     )
 }
