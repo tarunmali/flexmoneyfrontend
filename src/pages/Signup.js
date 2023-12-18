@@ -58,7 +58,7 @@ function Signup(props) {
     const PostData=async(e)=>{
 
         e.preventDefault();
-        console.log(user);
+        // console.log(user);
         let {name, email,age, phone, password, confirmpassword}=user;
         // age=Number(age);
         
