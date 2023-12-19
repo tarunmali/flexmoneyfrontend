@@ -1,14 +1,17 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useJwt } from "react-jwt";
+import { Routes, Route, Link, useNavigate, NavLink } from 'react-router-dom';
 
-
-const Logout = () => {
-    sessionStorage.removeItem('accessToken');
-    window.location.reload();
-  }
 
 const Header = () =>{
+    const navigate = useNavigate();
+    
+    const Logout = () => {
+        navigate('/');
+        sessionStorage.removeItem('accessToken');
+        window.location.reload();
+      }
 
     const accessToken=sessionStorage.getItem('accessToken');
     const validToken = useJwt(accessToken, "maybegeneraterandomly");
