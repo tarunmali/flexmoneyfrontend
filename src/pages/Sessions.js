@@ -45,12 +45,12 @@ const Sessions = () =>{
     if(enrollments.length!=0){
         console.log(enrollments);
     }
-
+    if(!sessionStorage.getItem('accessToken')) return <LoginToBook/>
     if(isLoading)   return <Loading/>
     
     return (
-        !sessionStorage.getItem('accessToken') ?(
-            <LoginToBook/>
+      enrollments.length==0?(
+        <Loading/>  
           ):(<div >
                 {enrollments.map((enrollment) => (
                      <div key={enrollment._id} className="about">
