@@ -3,48 +3,82 @@ import { useJwt } from "react-jwt";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import LoginToBook from "../components/LoginToBook";
+import axios from "axios";
+import { useNavigate, Link} from "react-router-dom";
+import { useQuery } from 'react-query';
+const fetcher= url => fetch(url).then(res => res.json());
+
 
 const Sessions = () =>{
     const accessToken=sessionStorage.getItem('accessToken');
     const validToken = useJwt(accessToken, "maybegeneraterandomly");
-    // console.log(validToken.decodedToken.email);
     let email;
     if(validToken.decodedToken!=null){
         email=validToken.decodedToken.email;
         }
     
-    //In Enrolllments table, find all rows where email=frontendEmail
+    //In Enrolllments table, find all rows where email=email
     const [enrollments, setEnrollments] = useState([]);
 
-    const [isLoading, setIsLoading] = useState(true);
+
+    // useEffect(() => {
+    //   axios.get(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`).then((response) => {
+    //     setEnrollments(response.data);
+    //   });
+
+    // }, [email]);
+
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      const fetchEnrollments = async () => {
+      const fetchData = async () => {
         try {
-          const response = await fetch(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
-          if (response.ok) {
-            const data = await response.json();
-            setEnrollments(data);
-          } else {
-            console.error('Failed to fetch enrollments');
-          }
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
+          setEnrollments(response.data);
         } catch (error) {
-          console.error('Error during fetch:', error);
+          console.error('Error fetching data:', error);
         } finally {
-          setIsLoading(false);
+          setLoading(false);
         }
       };
   
-      fetchEnrollments();
+      fetchData();
     }, [email]);
 
-    if (isLoading) {
+
+
+
+    // const {isLoading, data}=useQuery('post',()=>fetcher(`${process.env.REACT_APP_DATA}/Api/sessions`))
+    // const [isLoading, setIsLoading] = useState(true);
+
+    // useEffect(() => {
+    //   const fetchEnrollments = async () => {
+    //     try {
+    //       const response = await fetch(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
+    //       if (response.ok) {
+    //         const data = await response.json();
+    //         setEnrollments(data);
+    //       } else {
+    //         console.error('Failed to fetch enrollments');
+    //       }
+    //     } catch (error) {
+    //       console.error('Error during fetch:', error);
+    //     } finally {
+    //       setIsLoading(false);
+    //     }
+    //   };
+  
+    //   fetchEnrollments();
+    // }, []);
+
+    if (loading) {
         return <Loading />;
       }
 
-    if(enrollments.length!=0){
-        console.log(enrollments);
-    }
+    // if(enrollments.length!=0){
+    //     console.log(enrollments);
+    // }
     if(!sessionStorage.getItem('accessToken')) return <LoginToBook/>
     
     return (
