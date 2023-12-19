@@ -84,7 +84,7 @@ const SessionCard = ({ slotId, paymentId }) => {
             />
             <div>
             <p className="text-lg font-bold">Instructor</p>
-            <p >Yashesh Bhavsar</p>
+            <p >Yashesh Juneja</p>
             <p>Mobile: {1234567890}</p>
             <p>Instructor ID: 0073</p>
             </div>
