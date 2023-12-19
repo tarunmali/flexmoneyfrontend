@@ -10,13 +10,18 @@ import Login from './pages/Login';
 import 'dotenv/config';
 import Payments from "./pages/Payments";
 import Sessions from "./pages/Sessions";
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const App=()=>{
     return (
         <div >
+             <QueryClientProvider client={queryClient}>
             <Header/>
             <Outlet/>
             <Footer/>
+            </QueryClientProvider>
         </div>
     )
 }

@@ -31,50 +31,48 @@ const Sessions = () =>{
 
     const [loading, setLoading] = useState(true);
 
+    // useEffect(() => {
+    //   const fetchData = async () => {
+    //     try {
+    //       const response = await axios.get(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
+    //       setEnrollments(response.data);
+    //     } catch (error) {
+    //       console.error('Error fetching data:', error);
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
+  
+    //   fetchData();
+    // }, [email]);
+
+
+
+
+    // const {isLoading, data}=useQuery('get',()=>fetcher(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`))
+    // console.log(data);
+    // const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
-      const fetchData = async () => {
+      const fetchEnrollments = async () => {
         try {
-          const response = await axios.get(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
-          setEnrollments(response.data);
+          const response = await fetch(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
+          if (response.ok) {
+            const data = await response.json();
+            setEnrollments(data);
+          } else {
+            console.error('Failed to fetch enrollments');
+          }
         } catch (error) {
-          console.error('Error fetching data:', error);
+          console.error('Error during fetch:', error);
         } finally {
           setLoading(false);
         }
       };
   
-      fetchData();
+      fetchEnrollments();
     }, [email]);
 
-
-
-
-    // const {isLoading, data}=useQuery('post',()=>fetcher(`${process.env.REACT_APP_DATA}/Api/sessions`))
-    // const [isLoading, setIsLoading] = useState(true);
-
-    // useEffect(() => {
-    //   const fetchEnrollments = async () => {
-    //     try {
-    //       const response = await fetch(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
-    //       if (response.ok) {
-    //         const data = await response.json();
-    //         setEnrollments(data);
-    //       } else {
-    //         console.error('Failed to fetch enrollments');
-    //       }
-    //     } catch (error) {
-    //       console.error('Error during fetch:', error);
-    //     } finally {
-    //       setIsLoading(false);
-    //     }
-    //   };
-  
-    //   fetchEnrollments();
-    // }, []);
-
-    if (loading) {
-        return <Loading />;
-      }
 
     // if(enrollments.length!=0){
     //     console.log(enrollments);
@@ -82,7 +80,7 @@ const Sessions = () =>{
     if(!sessionStorage.getItem('accessToken')) return <LoginToBook/>
     
     return (
-      (<div >
+    !email|| !enrollments || loading?<Loading />:(<div >
                 {enrollments.map((enrollment) => (
                      <div key={enrollment._id} className="about">
                     <SessionCard {...enrollment} />
