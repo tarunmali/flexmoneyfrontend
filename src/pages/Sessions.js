@@ -16,24 +16,6 @@ const Sessions = () =>{
     //In Enrolllments table, find all rows where email=frontendEmail
     const [enrollments, setEnrollments] = useState([]);
 
-    // useEffect(() => {
-    //   const fetchEnrollments = async () => {
-    //     try {
-    //       const response = await fetch(`${process.env.REACT_APP_BACKEND}/Api/sessions/${email}`);
-    //       if (response.ok) {
-    //         const data = await response.json();
-    //         setEnrollments(data);
-    //       } else {
-    //         console.error('Failed to fetch enrollments');
-    //       }
-    //     } catch (error) {
-    //       console.error('Error during fetch:', error);
-    //     }
-    //   };
-  
-    //   fetchEnrollments();
-    // }, [email]);
-
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
