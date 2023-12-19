@@ -46,12 +46,9 @@ const Sessions = () =>{
         console.log(enrollments);
     }
     if(!sessionStorage.getItem('accessToken')) return <LoginToBook/>
-    if(isLoading)   return <Loading/>
     
     return (
-      enrollments.length==0?(
-        <Loading/>  
-          ):(<div >
+      (<div >
                 {enrollments.map((enrollment) => (
                      <div key={enrollment._id} className="about">
                     <SessionCard {...enrollment} />
